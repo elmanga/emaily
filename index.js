@@ -5,9 +5,10 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
-mongoose.connect(keys.mongoURI, function() { /* dummy function */ }).then(() => {
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true }, function() { /* dummy function */ }).then(() => {
     console.log('Connection Started')
 })
 .catch(err => { // mongoose connection error will be handled here
@@ -30,6 +31,7 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 if (process.env.NODE_ENV === 'production'){
     // Express will serve up production assets like our main.js file or main.css file!
