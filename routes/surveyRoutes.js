@@ -7,7 +7,6 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const requireLogin = (req, res, next) => {
     if (!req.user) {
         return ()=> {
-            alert("You Must Log in!!!");
             res.redirect('/auth/google');
         };
     }
