@@ -6,9 +6,11 @@ const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const requireLogin = (req, res, next) => {
     if (!req.user) {
-        return res.status(401).send({ error: 'You must log in!' });
+        return ()=> {
+            alert("You Must Log in!!!");
+            res.redirect('/auth/google');
+        };
     }
-
     next();
 };
 const requireCredits = (req, res, next) => {
