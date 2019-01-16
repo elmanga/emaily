@@ -6,7 +6,7 @@ const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const requireLogin = (req, res, next) => {
     if (!req.user) {
-        return res.status(401).send({ error: 'Not enough credits!' });
+        return res.status(401).send({ error: 'You must log in!' });
     }
     next();
 };
@@ -65,8 +65,7 @@ module.exports = app => {
         res.send({});
     });
 
-    app.use(requireLogin, requireCredits);
-    app.post('/api/surveys', async function (req, res) {
+    app.post('/api/surveys',requireLogin, requireCredits, async function (req, res) {
         const { title, subject, body, recipients } = req.body;
         const survey = new Survey({
             title,
