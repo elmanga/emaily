@@ -6,9 +6,7 @@ const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const requireLogin = (req, res, next) => {
     if (!req.user) {
-        return ()=> {
-            res.redirect('/auth/google');
-        };
+        return res.status(401).send({ error: 'Not enough credits!' });
     }
     next();
 };
