@@ -1,6 +1,9 @@
 module.export = (req, res, next) => {
     if (!req.user) {
-        return res.status(401).send({ error: 'You must log in!' });
+        return setTimeout(()=> {
+            alert("You Must Log in!!!");
+            res.redirect('/auth/google');
+        });
     }
 
     next();
